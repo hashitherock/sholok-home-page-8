@@ -1,0 +1,15 @@
+# SHOLOK portal
+- [x] Add prominent pill-shaped header search and verify English/Bengali searches.
+- [x] Connect consistent বাংলা / English text switching and verify it across pages and screen sizes.
+- [ ] Remove notification and cart icons; retain My Account at every width.
+- [ ] Connect real login, signup, email account information, password settings and logout without additional profile data; verify signed-in workflows.
+- [x] Build branded portal, all 17 services, search and service demos.
+- [x] Build news, media, shopping, discovery and editorial interactions.
+- [x] Build demo account, saved items, calendar, notes and sidebar widgets.
+- [x] Add footer destinations and verify desktop/mobile flows and tests.
+- [x] Update to 50% purple and 50% red-orange brand accents and distinct colors for all 17 services.
+- [x] Add responsive service menu and verify all pages across phone, tablet and desktop widths.
+- [x] Show multiple news stories together and four products in the portal shopping section; verify phone and desktop layouts.
+- [ ] Apply uploaded header, language, navigation and five-item categorized news requirements.
+- [ ] Audit controls and account messaging; fix broken local interactions without adding external services.
+- [ ] Verify all pages and core workflows across phone, tablet and desktop; run regression tests.
