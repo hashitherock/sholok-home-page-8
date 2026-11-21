@@ -11,7 +11,7 @@
 - [x] Add responsive service menu and verify all pages across phone, tablet and desktop widths.
 - [x] Show multiple news stories together and four products in the portal shopping section; verify phone and desktop layouts.
 - [x] Apply uploaded header, language and navigation requirements.
-- [ ] Apply five-item categorized news requirements (outside this header request).
+- [x] Apply five-item categorized news requirements.
 - [ ] Audit controls and account messaging; fix broken local interactions without adding external services.
 - [ ] Verify all pages and core workflows across phone, tablet and desktop; run regression tests.
 ## Current header brief
@@ -19,3 +19,7 @@
 - [x] Add About Sholok, Services and Help navigation with working destinations.
 - [x] Verify navigation, bilingual search, account access and responsive layouts.
 - [ ] Add verified support contact details (waiting for the user).
+
+## Current news brief
+- [x] Show the eight requested categories with five matching articles per category.
+- [x] Balance one featured article with four smaller articles; verify reading and desktop, tablet and phone layouts.

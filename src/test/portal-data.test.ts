@@ -1,6 +1,15 @@
 import { describe, expect, it } from 'vitest';
-import { services, searchContent, products, getProductPage } from '@/lib/portal-data';
+import { services, searchContent, products, getProductPage, newsCategories, getNewsArticles } from '@/lib/portal-data';
 describe('SHOLOK portal rules',()=>{
+ it('organizes news into the eight requested categories',()=>{
+  expect(newsCategories).toEqual(['National','Politics','Business','World','Health','Sports','Entertainment','Lifestyle']);
+ });
+ it.each(newsCategories)('shows five distinct matching news articles in %s',category=>{
+  const articles=getNewsArticles(category);
+  expect(articles).toHaveLength(5);
+  expect(new Set(articles.map(article=>article.id)).size).toBe(5);
+  expect(articles.every(article=>article.category===category)).toBe(true);
+ });
  it('shows four products in each unfiltered portal shopping page',()=>{
   expect(getProductPage(products,0).map(p=>p.id)).toEqual([1,2,3,4]);
   expect(getProductPage(products,1).map(p=>p.id)).toEqual([5,6,1,2]);

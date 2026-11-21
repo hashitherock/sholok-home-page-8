@@ -21,6 +21,9 @@ import {
   products,
   money,
   getProductPage,
+  newsCategories,
+  getNewsArticles,
+  type NewsCategory,
   type Product,
 } from "@/lib/portal-data";
 import { useLocalDemo } from "@/hooks/use-local-demo";
@@ -80,19 +83,21 @@ export function Pager({
   );
 }
 export function FeaturedNews() {
-  const { t } = useLanguage();
-  const [tab, setTab] = useState("For You");
-  const tabs = ["For You", "News", "Entertainment", "Sports", "Business"];
-  const offset = tabs.indexOf(tab);
-  const selected = [...stories.slice(offset), ...stories.slice(0, offset)].slice(0, 4);
+  const { t, language } = useLanguage();
+  const [tab, setTab] = useState<NewsCategory>("National");
+  const [reading, setReading] = useState<ReturnType<typeof getNewsArticles>[number] | null>(null);
+  const selected = getNewsArticles(tab);
+  const headline = (story: (typeof selected)[number]) => language === "bn" ? story.titleBn : story.title;
+  const description = (story: (typeof selected)[number]) => language === "bn" ? story.descriptionBn : story.description;
   return (
     <section className="panel news-panel" aria-label={t("Featured news")}>
-      <div className="tabs-line">
-        {tabs.map((label) => (
+      <div className="tabs-line news-categories" role="group" aria-label={t("News")}>
+        {newsCategories.map((label) => (
           <Button
             key={label}
             variant="tab"
             data-active={tab === label}
+            aria-pressed={tab === label}
             onClick={() => setTab(label)}
           >
             {t(label)}
@@ -110,22 +115,35 @@ export function FeaturedNews() {
       <div className="news-grid">
         {selected.map((story, i) => (
           <article key={story.id} className={`news-tile ${i === 0 ? "news-lead" : ""}`}>
-            <Link to="/service/$slug" params={{ slug: "news" }}>
-              <img src={story.image} alt={t(story.title)} width={1536} height={1024} />
+            <Button variant="ghost" className="news-story" onClick={() => setReading(story)}>
+              <img src={story.image} alt={headline(story)} width={1536} height={1024} />
               <div className="news-tile-copy">
                 <span className="news-category">
                   {t(i === 0 ? "EDITOR’S PICK · " : "")}
                   {t(story.category)}
                 </span>
-                <h2>{t(story.title)}</h2>
+                <h2>{headline(story)}</h2>
+                {i === 0 && <p className="news-summary">{description(story)}</p>}
                 <p>
-                  {t(story.source)} · {t(story.time)}
+                  {t(story.source)}
                 </p>
               </div>
-            </Link>
+            </Button>
           </article>
         ))}
       </div>
+      <Dialog open={reading !== null} onOpenChange={(open) => { if (!open) setReading(null); }}>
+        <DialogContent className="max-w-2xl">
+          <DialogTitle>{reading ? headline(reading) : t("News")}</DialogTitle>
+          <DialogDescription>{reading ? `${t(reading.category)} · ${t(reading.source)}` : t("Read article")}</DialogDescription>
+          {reading && (
+            <div className="dialog-body">
+              <img className="w-full aspect-video object-cover rounded-md" src={reading.image} alt={headline(reading)} />
+              <p className="mt-5 text-sm leading-7 text-foreground">{description(reading)}</p>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }
