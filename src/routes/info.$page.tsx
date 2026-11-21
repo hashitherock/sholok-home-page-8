@@ -1,7 +1,15 @@
 import { useLanguage } from "@/lib/language";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Shell } from "@/components/portal/shell";
+import { helpDestinations, helpQuestions } from "@/lib/portal-data";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 const titleFor = (page: string) =>
+  helpDestinations.find((destination) => destination.page === page)?.title ??
   page
     .split("-")
     .map((x) => x.charAt(0).toUpperCase() + x.slice(1))
@@ -40,6 +48,7 @@ function Information() {
   const { t } = useLanguage();
   const { page } = Route.useParams();
   const legal = ["privacy-policy", "cookie-policy", "terms-of-use"].includes(page);
+  const help = helpDestinations.some((destination) => destination.page === page);
   return (
     <Shell>
       <main className="portal-container destination">
@@ -49,7 +58,84 @@ function Information() {
           </Link>
           <h1 className="font-semibold mt-6">{t(titleFor(page))}</h1>
           <p className="text-xs text-primary mt-3">{t("Last updated: 1 November 2026")}</p>
-          {legal ? (
+          {page === "about" ? (
+            <>
+              <h2 className="text-xl font-semibold mt-8">{t("Introduction")}</h2>
+              <p className="text-sm leading-7 text-muted-foreground mt-3">
+                {t(
+                  "SHOLOK brings communities, discovery, shopping, stories and everyday utilities together in one welcoming place.",
+                )}
+              </p>
+              <h2 id="overview" className="text-xl font-semibold mt-8">
+                {t("Overview")}
+              </h2>
+              <p className="text-sm leading-7 text-muted-foreground mt-3">
+                {t(
+                  "Browse communities, shopping, news, entertainment and everyday tools across the SHOLOK network.",
+                )}
+              </p>
+              <h2 id="purpose" className="text-xl font-semibold mt-8">
+                {t("Our purpose")}
+              </h2>
+              <p className="text-sm leading-7 text-muted-foreground mt-3">
+                {t(
+                  "Our purpose is to make discovery and everyday connections simpler, bringing useful services together in one accessible portal.",
+                )}
+              </p>
+            </>
+          ) : help ? (
+            <>
+              <nav
+                aria-label={t("Help")}
+                className="flex flex-wrap gap-x-6 gap-y-3 mt-6 text-sm text-primary"
+              >
+                {helpDestinations
+                  .filter((destination) => destination.page !== page)
+                  .map((destination) => (
+                    <Link
+                      key={destination.page}
+                      to="/info/$page"
+                      params={{ page: destination.page }}
+                    >
+                      {t(destination.title)}
+                    </Link>
+                  ))}
+              </nav>
+              {(page === "help-center" || page === "faq") && (
+                <section className="mt-8">
+                  <h2 className="text-xl font-semibold">{t("Frequently asked questions")}</h2>
+                  <Accordion type="single" collapsible className="mt-3">
+                    {helpQuestions.map(({ question, answer }, index) => (
+                      <AccordionItem key={question} value={String(index)}>
+                        <AccordionTrigger>{t(question)}</AccordionTrigger>
+                        <AccordionContent className="text-muted-foreground leading-7">
+                          {t(answer)}
+                        </AccordionContent>
+                      </AccordionItem>
+                    ))}
+                  </Accordion>
+                </section>
+              )}
+              {page === "support" && (
+                <>
+                  <h2 className="text-xl font-semibold mt-8">{t("Help & support")}</h2>
+                  <p className="text-sm leading-7 text-muted-foreground mt-3">
+                    {t("Use the header search or open Services to browse the complete directory.")}
+                  </p>
+                </>
+              )}
+              {(page === "contact" || page === "support" || page === "help-center") && (
+                <section className="mt-8">
+                  <h2 className="text-xl font-semibold">{t("Contact options")}</h2>
+                  <p className="text-sm leading-7 text-muted-foreground mt-3">
+                    {t(
+                      "Verified support contact details have not been supplied. Do not send passwords, payment details or private documents through this website.",
+                    )}
+                  </p>
+                </section>
+              )}
+            </>
+          ) : legal ? (
             <>
               <h2 className="text-lg font-semibold mt-8">{t("Your data, your control")}</h2>
               <p className="text-sm leading-7 text-muted-foreground mt-3">

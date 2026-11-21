@@ -1,18 +1,7 @@
 import { useLanguage } from "@/lib/language";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import {
-  Menu,
-  Bell,
-  ShoppingBag,
-  UserRound,
-  Search,
-  Mic,
-  X,
-  ArrowUpRight,
-  ArrowUp,
-  Heart,
-} from "lucide-react";
+import { Menu, UserRound, Search, Mic, X, ArrowUpRight, ArrowUp, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { useLocalDemo } from "@/hooks/use-local-demo";
@@ -201,7 +190,6 @@ export function Header() {
   const [account, setAccount] = useState(false);
   const [menu, setMenu] = useState(false);
   const [recent, setRecent] = useLocalDemo<string[]>("sholok-searches", []);
-  const [saved] = useLocalDemo<number[]>("sholok-saved", []);
   const results = searchContent(query).slice(0, 7);
   function search() {
     if (query.trim()) {
@@ -218,8 +206,9 @@ export function Header() {
             <Button
               variant="ghost"
               size="icon"
-              aria-label={t("Open service menu")}
-              title={t("All services")}
+              aria-label={t("Open main menu")}
+              title={t("Open main menu")}
+              aria-haspopup="dialog"
               aria-expanded={menu}
               onClick={() => setMenu(true)}
             >
@@ -228,8 +217,81 @@ export function Header() {
             <Link to="/" className="brand header-brand">
               {t("SHOLOK")}
             </Link>
+            <div className="search-area">
+              <form
+                className="search-box"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  search();
+                }}
+              >
+                <span className="brand">{t("S")}</span>
+                <input
+                  aria-label={t("Search SHOLOK")}
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  onFocus={() => setFocused(true)}
+                  onBlur={() => setTimeout(() => setFocused(false), 180)}
+                  placeholder={t("What are you looking for?")}
+                />
+                {query && (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    aria-label={t("Clear search")}
+                    onClick={() => setQuery("")}
+                  >
+                    <X />
+                  </Button>
+                )}
+                <Button
+                  type="button"
+                  variant="ghost"
+                  size="icon"
+                  aria-label={t("Voice search")}
+                  onClick={() => setPanel("Voice search")}
+                >
+                  <Mic className="text-muted-foreground" />
+                </Button>
+                <Button type="submit" variant="ghost" size="icon" aria-label={t("Search")}>
+                  <Search className="text-primary" />
+                </Button>
+              </form>
+              {focused && (query || recent.length > 0) && (
+                <div className="search-suggestions">
+                  <p className="text-xs text-muted-foreground">
+                    {t(query ? "Suggestions" : "Recent searches")}
+                  </p>
+                  {query ? (
+                    results.length ? (
+                      results.map((r, i) => (
+                        <Link key={i} to="/service/$slug" params={{ slug: r.slug }}>
+                          <Search className="size-4 text-primary" />
+                          <span className="text-sm">{t(r.title)}</span>
+                          <span className="ml-auto text-xs text-muted-foreground">{t(r.type)}</span>
+                        </Link>
+                      ))
+                    ) : (
+                      <p className="p-3 text-sm">{t("No results found. Try another keyword.")}</p>
+                    )
+                  ) : (
+                    recent.map((r) => (
+                      <Button
+                        key={r}
+                        variant="ghost"
+                        className="w-full justify-start"
+                        onMouseDown={() => setQuery(r)}
+                      >
+                        {t(r)}
+                      </Button>
+                    ))
+                  )}
+                </div>
+              )}
+            </div>
             <div className="top-actions">
-              <div className="language-switch" role="group" aria-label="Language">
+              <div className="language-switch" role="group" aria-label={t("Language")}>
                 <Button
                   type="button"
                   variant="ghost"
@@ -251,105 +313,15 @@ export function Header() {
               </div>
               <Button
                 variant="ghost"
-                size="icon"
-                aria-label={t("Notifications")}
-                title={t("Notifications")}
-                onClick={() => setPanel("Notifications")}
-              >
-                <Bell />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
-                aria-label={t("Saved shopping")}
-                title={t("Saved shopping")}
-                onClick={() => setPanel("Saved shopping")}
-              >
-                <ShoppingBag />
-              </Button>
-              <Button
-                variant="ghost"
-                size="icon"
+                className="header-account"
                 aria-label={t("My Account")}
                 title={t("My Account")}
                 onClick={() => setAccount(true)}
               >
                 <UserRound />
+                <span>{t("My Account")}</span>
               </Button>
             </div>
-          </div>
-          <div className="search-area">
-            <form
-              className="search-box"
-              onSubmit={(e) => {
-                e.preventDefault();
-                search();
-              }}
-            >
-              <span className="brand">{t("S")}</span>
-              <input
-                aria-label={t("Search SHOLOK")}
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                onFocus={() => setFocused(true)}
-                onBlur={() => setTimeout(() => setFocused(false), 180)}
-                placeholder={t("What are you looking for?")}
-              />
-              {query && (
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="icon"
-                  aria-label={t("Clear search")}
-                  onClick={() => setQuery("")}
-                >
-                  <X />
-                </Button>
-              )}
-              <Button
-                type="button"
-                variant="ghost"
-                size="icon"
-                aria-label={t("Voice search")}
-                onClick={() => setPanel("Voice search")}
-              >
-                <Mic className="text-muted-foreground" />
-              </Button>
-              <Button type="submit" variant="ghost" size="icon" aria-label={t("Search")}>
-                <Search className="text-primary" />
-              </Button>
-            </form>
-            {focused && (query || recent.length > 0) && (
-              <div className="search-suggestions">
-                <p className="text-xs text-muted-foreground">
-                  {t(query ? "Suggestions" : "Recent searches")}
-                </p>
-                {query ? (
-                  results.length ? (
-                    results.map((r, i) => (
-                      <Link key={i} to="/service/$slug" params={{ slug: r.slug }}>
-                        <Search className="size-4 text-primary" />
-                        <span className="text-sm">{t(r.title)}</span>
-                        <span className="ml-auto text-xs text-muted-foreground">{t(r.type)}</span>
-                      </Link>
-                    ))
-                  ) : (
-                    <p className="p-3 text-sm">{t("No results found. Try another keyword.")}</p>
-                  )
-                ) : (
-                  recent.map((r) => (
-                    <Button
-                      key={r}
-                      variant="ghost"
-                      className="w-full justify-start"
-                      onMouseDown={() => setQuery(r)}
-                    >
-                      {t(r)}
-                    </Button>
-                  ))
-                )}
-              </div>
-            )}
           </div>
           <p className="header-caption">
             {t("Your everyday, connected. ")}
@@ -437,21 +409,6 @@ export function Header() {
                 ) : (
                   <p>{t("No results found. Try another keyword.")}</p>
                 )}
-              </>
-            ) : panel === "Saved shopping" ? (
-              <>
-                <p className="text-sm mb-4">
-                  {saved.length}
-                  {t(" products on your wishlist.")}
-                </p>
-                <Link
-                  to="/service/$slug"
-                  params={{ slug: "shopping" }}
-                  onClick={() => setPanel("")}
-                  className="text-primary"
-                >
-                  {t("View your shopping collection →")}
-                </Link>
               </>
             ) : panel === "Voice search" ? (
               <p className="text-sm">

@@ -629,3 +629,16 @@ export const newsArticles = newsCategories.flatMap((category, categoryIndex) =>
 export function getNewsArticles(category: NewsCategory) {
   return newsArticles.filter((article) => article.category === category).slice(0, 5);
 }
+
+
+export const helpDestinations = [
+  { title: "Help Center", page: "help-center" },
+  { title: "Support", page: "support" },
+  { title: "FAQ", page: "faq" },
+  { title: "Contact Information", page: "contact" },
+];
+export const helpQuestions = [
+  { question: "How do I find a service?", answer: "Use the header search or open Services to browse the complete directory." },
+  { question: "Where are my notes and saved items stored?", answer: "They are stored in this browser on this device. Clearing browser data removes them." },
+  { question: "Can I place an order or reset a password?", answer: "Online checkout, account authentication and recovery emails are not connected. No payment or recovery request is sent." },
+];
