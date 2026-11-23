@@ -4,7 +4,6 @@ import { CloudSun, ArrowUpRight } from "lucide-react";
 import { Shell } from "@/components/portal/shell";
 import {
   FeaturedNews,
-  MediaOutlets,
   Shopping,
   Discovery,
   Sponsored,
@@ -69,7 +68,6 @@ function Index() {
         <div className="portal-columns">
           <div className="content-column">
             <FeaturedNews />
-            <MediaOutlets />
             <Shopping />
             <Discovery />
             <Sponsored />

@@ -330,27 +330,6 @@ export function Header() {
               <ArrowUpRight className="inline size-3" />
             </span>
           </p>
-          <nav className="service-nav" aria-label={t("Core services")}>
-            {services.map((s) => (
-              <Link key={s.slug} to="/service/$slug" params={{ slug: s.slug }}>
-                <span className="service-icon" data-service={s.slug}>
-                  <s.icon />
-                </span>
-                <span>{t(s.name)}</span>
-              </Link>
-            ))}
-            <Button
-              variant="ghost"
-              className="browse-services"
-              onClick={() => setMenu(true)}
-              aria-label={t("Browse all services")}
-            >
-              <span className="service-icon">
-                <Menu />
-              </span>
-              <span>{t("All services")}</span>
-            </Button>
-          </nav>
         </div>
       </header>
       <ServiceMenu open={menu} onOpenChange={setMenu} />

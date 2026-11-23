@@ -7,8 +7,6 @@ import {
   ArrowUpRight,
   Heart,
   Star,
-  Grid2X2,
-  List,
   Play,
   ChevronDown,
 } from "lucide-react";
@@ -17,7 +15,6 @@ import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/compone
 import {
   stories,
   images,
-  publications,
   products,
   money,
   getProductPage,
@@ -144,61 +141,6 @@ export function FeaturedNews() {
           )}
         </DialogContent>
       </Dialog>
-    </section>
-  );
-}
-export function MediaOutlets() {
-  const { t } = useLanguage();
-  const [page, setPage] = useState(0);
-  const [list, setList] = useState(false);
-  const [more, setMore] = useState(false);
-  const outlets = [...publications.slice(page * 4), ...publications.slice(0, page * 4)].slice(
-    0,
-    more ? 12 : 8,
-  );
-  return (
-    <section className="panel">
-      <SectionHeading title={t("Media Outlets")} subtitle={t("A world of perspectives")}>
-        <div className="flex gap-1">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="size-6"
-            aria-label={t("Grid view")}
-            title={t("Grid view")}
-            onClick={() => setList(false)}
-          >
-            <Grid2X2 className={!list ? "text-primary" : ""} />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="size-6"
-            aria-label={t("List view")}
-            title={t("List view")}
-            onClick={() => setList(true)}
-          >
-            <List className={list ? "text-primary" : ""} />
-          </Button>
-        </div>
-      </SectionHeading>
-      <div className={`publication-grid ${list ? "list" : ""}`}>
-        {outlets.map((p) => (
-          <Link key={p} to="/service/$slug" params={{ slug: "news" }}>
-            {t(p)}
-          </Link>
-        ))}
-      </div>
-      <div className="section-foot">
-        <Pager
-          onPrev={() => setPage((page + 2) % 3)}
-          onNext={() => setPage((page + 1) % 3)}
-          label={`${page + 1} / 3`}
-        />
-        <Button variant="link" size="sm" className="text-[10px]" onClick={() => setMore(!more)}>
-          {t(more ? "Show less" : "View all outlets")}
-        </Button>
-      </div>
     </section>
   );
 }
