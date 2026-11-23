@@ -23,4 +23,4 @@
 ## Current news brief
 - [x] Show the eight requested categories with five matching articles per category.
 - [x] Balance one featured article with four smaller articles; verify reading and desktop, tablet and phone layouts.
-- [ ] Reduce News spacing and height without changing the five-story layout; verify desktop, tablet and phone sizes.
+- [x] Reduce News spacing and height without changing the five-story layout; verify desktop, tablet and phone sizes.
