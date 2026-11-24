@@ -1,4 +1,4 @@
-import { useLanguage } from "@/lib/language";
+import { LocalizedText, useLanguage } from "@/lib/language";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Shell } from "@/components/portal/shell";
@@ -41,8 +41,8 @@ function Service() {
     return (
       <Shell>
         <main className="portal-container destination">
-          <h1>{t("Service not found")}</h1>
-          <Link to="/services">{t("Explore all services →")}</Link>
+          <h1><LocalizedText text={"Service not found"} /></h1>
+          <Link to="/services"><LocalizedText text={"Explore all services →"} /></Link>
         </main>
       </Shell>
     );
@@ -50,21 +50,21 @@ function Service() {
     <Shell>
       <main className="portal-container destination">
         <Link to="/services" className="text-xs text-primary">
-          {t("← All services")}
+          <LocalizedText text={"← All services"} />
         </Link>
         <div className="flex items-center gap-4 mt-6">
           <span className="service-icon" data-service={s.slug}>
             <s.icon />
           </span>
           <div>
-            <h1 className="font-semibold">{t(s.name)}</h1>
-            <p className="text-sm text-muted-foreground mt-1">{t(s.description)}</p>
+            <h1 className="font-semibold"><LocalizedText text={s.name} /></h1>
+            <p className="text-sm text-muted-foreground mt-1"><LocalizedText text={s.description} /></p>
           </div>
         </div>
         <div className="flex flex-wrap justify-between gap-3 mt-5 mb-6 border-y border-border py-4">
-          <span className="text-xs text-muted-foreground">{t("Part of the SHOLOK network")}</span>
+          <span className="text-xs text-muted-foreground"><LocalizedText text={"Part of the SHOLOK network"} /></span>
           <span className="text-xs text-primary">
-            {t("Destination: ")}
+            <LocalizedText text={"Destination: "} />
             {s.url}
           </span>
         </div>
@@ -83,7 +83,7 @@ function Service() {
         ) : slug === "translate" || slug === "dictionary" ? (
           <section className="max-w-xl form-stack">
             <label className="text-sm font-semibold">
-              {t(slug === "translate" ? "English → Bengali" : "Look up a word")}
+              <LocalizedText text={slug === "translate" ? "English → Bengali" : "Look up a word"} />
             </label>
             <textarea
               aria-label={t("Enter text")}
@@ -111,17 +111,17 @@ function Service() {
                 );
               }}
             >
-              {t(slug === "translate" ? "Translate" : "Look up")}
+              <LocalizedText text={slug === "translate" ? "Translate" : "Look up"} />
             </Button>
             {output && (
               <p role="status" className="bg-secondary rounded-md p-5">
-                {t(output)}
+                <LocalizedText text={output} />
               </p>
             )}
           </section>
         ) : slug === "smartstore" ? (
           <>
-            <h2 className="text-xl font-semibold mb-5">{t("Featured sellers")}</h2>
+            <h2 className="text-xl font-semibold mb-5"><LocalizedText text={"Featured sellers"} /></h2>
             <div className="directory-grid">
               {["abc-fashion", "nike", "apple"].map((name) => (
                 <div key={name} className="directory-card">
@@ -131,12 +131,12 @@ function Service() {
                     className="w-full h-40 object-cover rounded-md"
                   />
                   <h3 className="capitalize">{name}</h3>
-                  <p>{t("Verified seller · Fast dispatch from Dhaka")}</p>
+                  <p><LocalizedText text={"Verified seller · Fast dispatch from Dhaka"} /></p>
                   <Button variant="outline" onClick={() => setSeller(name)}>
-                    {t("Preview storefront")}
+                    <LocalizedText text={"Preview storefront"} />
                   </Button>
                   <p className="break-all text-[10px]">
-                    {t("smartstore.sholok.com/")}
+                    <LocalizedText text={"smartstore.sholok.com/"} />
                     {name}
                   </p>
                 </div>
@@ -146,7 +146,7 @@ function Service() {
               <div className="mt-6">
                 <h2 className="text-xl font-semibold mb-4 capitalize">
                   {seller}
-                  {t(" · Store preview")}
+                  <LocalizedText text={" · Store preview"} />
                 </h2>
                 <Shopping full />
               </div>
@@ -154,7 +154,7 @@ function Service() {
           </>
         ) : slug === "map" ? (
           <section>
-            <h2 className="text-xl font-semibold mb-4">{t("Discover Dhaka")}</h2>
+            <h2 className="text-xl font-semibold mb-4"><LocalizedText text={"Discover Dhaka"} /></h2>
             <img
               src={images.city}
               alt={t("Dhaka city skyline")}
@@ -163,24 +163,24 @@ function Service() {
             <div className="directory-grid mt-5">
               {["Lakeside Walk", "City Gardens", "Downtown District"].map((p) => (
                 <div key={p} className="directory-card">
-                  <h3>{t(p)}</h3>
-                  <p>{t("Popular destination · Dhaka")}</p>
+                  <h3><LocalizedText text={p} /></h3>
+                  <p><LocalizedText text={"Popular destination · Dhaka"} /></p>
                   <Button variant="outline" onClick={() => setOutput(`${p} saved to your places.`)}>
-                    {t("Save place")}
+                    <LocalizedText text={"Save place"} />
                   </Button>
                 </div>
               ))}
             </div>
             {output && (
               <p role="status" className="mt-4 text-primary">
-                {t(output)}
+                <LocalizedText text={output} />
               </p>
             )}
           </section>
         ) : slug === "cafe" || slug === "knowledge" ? (
           <>
             <h2 className="text-xl font-semibold mb-4">
-              {t(slug === "cafe" ? "Join the conversation" : "A little curiosity goes a long way")}
+              <LocalizedText text={slug === "cafe" ? "Join the conversation" : "A little curiosity goes a long way"} />
             </h2>
             <div className="directory-grid">
               {[
@@ -189,22 +189,22 @@ function Service() {
                 "What are you learning this week?",
               ].map((title, i) => (
                 <div className="directory-card" key={title}>
-                  <h3>{t(title)}</h3>
+                  <h3><LocalizedText text={title} /></h3>
                   <p>
                     {12 + i * 7}
-                    {t(" discussions · Community")}
+                    <LocalizedText text={" discussions · Community"} />
                   </p>
                   <Button variant="outline" onClick={() => setOutput(title)}>
-                    {t("Open discussion")}
+                    <LocalizedText text={"Open discussion"} />
                   </Button>
                 </div>
               ))}
             </div>
             {output && (
               <div className="mt-6 form-stack max-w-xl">
-                <h3 className="font-semibold">{t(output)}</h3>
+                <h3 className="font-semibold"><LocalizedText text={output} /></h3>
                 <p className="text-sm text-muted-foreground">
-                  {t("SHOLOK Explorer: “It’s the little connections that make the difference.”")}
+                  <LocalizedText text={"SHOLOK Explorer: “It’s the little connections that make the difference.”"} />
                 </p>
                 <input
                   aria-label={t("Write a reply")}
@@ -218,14 +218,14 @@ function Service() {
                     setInput("");
                   }}
                 >
-                  {t("Post reply")}
+                  <LocalizedText text={"Post reply"} />
                 </Button>
               </div>
             )}
           </>
         ) : slug === "realestate" ? (
           <>
-            <h2 className="text-xl font-semibold mb-5">{t("Find a place to call yours")}</h2>
+            <h2 className="text-xl font-semibold mb-5"><LocalizedText text={"Find a place to call yours"} /></h2>
             <div className="directory-grid">
               {["Light-filled city apartment", "A home by the green", "Modern family living"].map(
                 (title, i) => (
@@ -235,11 +235,11 @@ function Service() {
                       alt={t(title)}
                       className="w-full h-40 object-cover rounded-md"
                     />
-                    <h3>{t(title)}</h3>
+                    <h3><LocalizedText text={title} /></h3>
                     <p>
-                      {t("Dhaka · ")}
+                      <LocalizedText text={"Dhaka · "} />
                       {i + 2}
-                      {t(" bedrooms · Available now")}
+                      <LocalizedText text={" bedrooms · Available now"} />
                     </p>
                     <Button
                       variant="outline"
@@ -249,7 +249,7 @@ function Service() {
                         )
                       }
                     >
-                      {t("Request a viewing")}
+                      <LocalizedText text={"Request a viewing"} />
                     </Button>
                   </div>
                 ),
@@ -257,14 +257,14 @@ function Service() {
             </div>
             {output && (
               <p role="status" className="mt-5 text-sm text-primary">
-                {t(output)}
+                <LocalizedText text={output} />
               </p>
             )}
           </>
         ) : slug === "news" || slug === "sports" ? (
           <>
             <h2 className="text-xl font-semibold mb-5">
-              {t(slug === "sports" ? "Around the sporting world" : "Today’s perspectives")}
+              <LocalizedText text={slug === "sports" ? "Around the sporting world" : "Today’s perspectives"} />
             </h2>
             <div className="discovery-grid px-0">
               {stories.map((story) => (
@@ -276,25 +276,23 @@ function Service() {
                     width={1536}
                     height={1024}
                   />
-                  <h3>{t(story.title)}</h3>
-                  <p className="text-xs text-muted-foreground mb-2">{t(story.description)}</p>
+                  <h3><LocalizedText text={story.title} /></h3>
+                  <p className="text-xs text-muted-foreground mb-2"><LocalizedText text={story.description} /></p>
                   <Button
                     variant="link"
                     className="p-0 text-xs"
                     onClick={() => setOutput(story.title)}
                   >
-                    {t("Read story →")}
+                    <LocalizedText text={"Read story →"} />
                   </Button>
                 </article>
               ))}
             </div>
             {output && (
               <section className="border-t border-border pt-6">
-                <h2 className="text-xl font-semibold">{t(output)}</h2>
+                <h2 className="text-xl font-semibold"><LocalizedText text={output} /></h2>
                 <p className="text-sm mt-4 leading-7 text-muted-foreground">
-                  {t(
-                    "This story explores the people, places and ideas making everyday life more connected. Across the city, communities are creating thoughtful spaces, sharing knowledge and finding inspiration in small moments. From urban gardens to neighbourhood libraries, these everyday efforts are quietly reshaping how we live together.",
-                  )}
+                  <LocalizedText text={"This story explores the people, places and ideas making everyday life more connected. Across the city, communities are creating thoughtful spaces, sharing knowledge and finding inspiration in small moments. From urban gardens to neighbourhood libraries, these everyday efforts are quietly reshaping how we live together."} />
                 </p>
               </section>
             )}

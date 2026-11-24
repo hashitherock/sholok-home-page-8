@@ -1,4 +1,4 @@
-import { useLanguage } from "@/lib/language";
+import { LocalizedText, useLanguage } from "@/lib/language";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Search } from "lucide-react";
@@ -37,15 +37,15 @@ export function ServiceMenu({
       <SheetContent side="left" className="service-menu">
         <SheetHeader className="text-left">
           <SheetTitle>
-            <span className="brand text-3xl">{t("SHOLOK")}</span>
+            <span className="brand text-3xl"><LocalizedText text={"SHOLOK"} /></span>
           </SheetTitle>
-          <SheetDescription>{t("Your everyday, connected.")}</SheetDescription>
+          <SheetDescription><LocalizedText text={"Your everyday, connected."} /></SheetDescription>
         </SheetHeader>
         <div className="menu-scroll">
           <nav aria-label={t("Main navigation")}>
             <Accordion type="multiple" defaultValue={["services"]} className="main-menu-sections">
               <AccordionItem value="about">
-                <AccordionTrigger>{t("About Sholok")}</AccordionTrigger>
+                <AccordionTrigger><LocalizedText text={"About Sholok"} /></AccordionTrigger>
                 <AccordionContent>
                   <div className="menu-destinations">
                     <Link
@@ -53,7 +53,7 @@ export function ServiceMenu({
                       params={{ page: "about" }}
                       onClick={() => onOpenChange(false)}
                     >
-                      {t("Introduction")} <ArrowUpRight className="size-4" />
+                      <LocalizedText text={"Introduction"} /> <ArrowUpRight className="size-4" />
                     </Link>
                     <Link
                       to="/info/$page"
@@ -61,7 +61,7 @@ export function ServiceMenu({
                       hash="overview"
                       onClick={() => onOpenChange(false)}
                     >
-                      {t("Overview")} <ArrowUpRight className="size-4" />
+                      <LocalizedText text={"Overview"} /> <ArrowUpRight className="size-4" />
                     </Link>
                     <Link
                       to="/info/$page"
@@ -69,13 +69,13 @@ export function ServiceMenu({
                       hash="purpose"
                       onClick={() => onOpenChange(false)}
                     >
-                      {t("Our purpose")} <ArrowUpRight className="size-4" />
+                      <LocalizedText text={"Our purpose"} /> <ArrowUpRight className="size-4" />
                     </Link>
                   </div>
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="services">
-                <AccordionTrigger>{t("Services")}</AccordionTrigger>
+                <AccordionTrigger><LocalizedText text={"Services"} /></AccordionTrigger>
                 <AccordionContent>
                   <label className="menu-search">
                     <Search className="size-4 shrink-0" />
@@ -92,7 +92,7 @@ export function ServiceMenu({
                       if (!group.length) return null;
                       return (
                         <section className="menu-group" key={category}>
-                          <h2>{t(category)}</h2>
+                          <h2><LocalizedText text={category} /></h2>
                           <div className="menu-service-grid">
                             {group.map((service) => (
                               <Link
@@ -104,7 +104,7 @@ export function ServiceMenu({
                                 <span className="service-icon" data-service={service.slug}>
                                   <service.icon />
                                 </span>
-                                <span className="min-w-0">{t(service.name)}</span>
+                                <span className="min-w-0"><LocalizedText text={service.name} /></span>
                                 <ArrowUpRight className="size-3 shrink-0 menu-arrow" />
                               </Link>
                             ))}
@@ -114,14 +114,14 @@ export function ServiceMenu({
                     })}
                     {!filtered.length && (
                       <p className="py-8 text-sm text-muted-foreground">
-                        {t("No matching services.")}
+                        <LocalizedText text={"No matching services."} />
                       </p>
                     )}
                   </nav>
                 </AccordionContent>
               </AccordionItem>
               <AccordionItem value="help">
-                <AccordionTrigger>{t("Help")}</AccordionTrigger>
+                <AccordionTrigger><LocalizedText text={"Help"} /></AccordionTrigger>
                 <AccordionContent>
                   <div className="menu-destinations">
                     {helpDestinations.map(({ title, page }) => (
@@ -131,7 +131,7 @@ export function ServiceMenu({
                         params={{ page }}
                         onClick={() => onOpenChange(false)}
                       >
-                        {t(title)} <ArrowUpRight className="size-4" />
+                        <LocalizedText text={title} /> <ArrowUpRight className="size-4" />
                       </Link>
                     ))}
                   </div>
@@ -142,7 +142,7 @@ export function ServiceMenu({
         </div>
         <Button asChild variant="outline" className="w-full shrink-0">
           <Link to="/services" onClick={() => onOpenChange(false)}>
-            {t("Explore all services ")}
+            <LocalizedText text={"Explore all services "} />
             <ArrowUpRight />
           </Link>
         </Button>

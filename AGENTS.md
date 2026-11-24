@@ -30,6 +30,7 @@ use the editor.
 <!-- LOVABLE:END -->
 
 ## Project architecture
+- Render translated display text with the shared intrinsic-size LocalizedText primitive so both language lengths reserve space without fixed section heights; keep translated attributes and internal values as strings.
 - Keep translations in a browser-safe dictionary and apply a single root language provider so search indexing and all portal pages share the selected language without changing internal filter values or URLs.
 - Keep demo content and service destinations centralized in a browser-safe data module so portal views and searches share one source of truth.
 - Use shared portal components and typed TanStack leaf routes for service previews and informational destinations so navigation remains functional without external dependencies.

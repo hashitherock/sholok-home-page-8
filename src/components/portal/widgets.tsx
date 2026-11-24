@@ -1,4 +1,4 @@
-import { useLanguage } from "@/lib/language";
+import { LocalizedText, useLanguage } from "@/lib/language";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import {
@@ -25,20 +25,20 @@ export function LoginWidget() {
   const [user] = useLocalDemo("sholok-user", "");
   return (
     <section className="panel account-panel">
-      <p>{t(user ? `Welcome back, ${user}` : "A little more you. A lot more possibilities.")}</p>
+      <p><LocalizedText text={user ? `Welcome back, ${user}` : "A little more you. A lot more possibilities."} /></p>
       <Button className="login" onClick={() => setMode("Sign In")}>
         <LockKeyhole className="size-3" />
-        <span className="brand text-primary-foreground text-base">{t("SHOLOK")}</span>{" "}
-        {t(user ? "My Account" : "Sign in")}
+        <span className="brand text-primary-foreground text-base"><LocalizedText text={"SHOLOK"} /></span>{" "}
+        <LocalizedText text={user ? "My Account" : "Sign in"} />
       </Button>
       <div className="account-links">
         {["Find ID", "Forgot Password", "Create Account"].map((m) => (
           <Button key={m} variant="ghost" onClick={() => setMode(m)}>
-            {t(m)}
+            <LocalizedText text={m} />
           </Button>
         ))}
       </div>
-      <p className="demo-tag mt-3 mb-0">{t("Sign in to sync your saved items and notes")}</p>
+      <p className="demo-tag mt-3 mb-0"><LocalizedText text={"Sign in to sync your saved items and notes"} /></p>
       <AccountDialog
         key={mode}
         initial={mode || "Sign In"}
@@ -59,24 +59,24 @@ export function Promotion() {
         height={1024}
       />
       <div className="promo-copy">
-        <span className="eyebrow">{t("THE EVERYDAY EDIT")}</span>
+        <span className="eyebrow"><LocalizedText text={"THE EVERYDAY EDIT"} /></span>
         <h2>
-          {t("Little things.")}
+          <LocalizedText text={"Little things."} />
           <br />
-          {t("Better living.")}
+          <LocalizedText text={"Better living."} />
         </h2>
-        <p>{t("Thoughtfully picked. Just for you.")}</p>
+        <p><LocalizedText text={"Thoughtfully picked. Just for you."} /></p>
         <Link
           to="/service/$slug"
           params={{ slug: "shopping" }}
           className="text-[11px] font-bold inline-flex items-center gap-1"
         >
-          {t("Explore the collection ")}
+          <LocalizedText text={"Explore the collection "} />
           <ArrowUpRight className="size-3" />
         </Link>
       </div>
       <span className="absolute right-2 bottom-2 text-[8px] bg-card/80 px-1 text-muted-foreground">
-        {t("Sponsored")}
+        <LocalizedText text={"Sponsored"} />
       </span>
     </section>
   );
@@ -85,8 +85,8 @@ export function FeaturedProduct() {
   const { t } = useLanguage();
   return (
     <section className="panel">
-      <SectionHeading title={t("Today’s good find")}>
-        <span className="text-[9px] text-destructive font-semibold">{t("30% OFF")}</span>
+      <SectionHeading title="Today’s good find">
+        <span className="text-[9px] text-destructive font-semibold"><LocalizedText text={"30% OFF"} /></span>
       </SectionHeading>
       <div className="sidebar-product">
         <img
@@ -97,11 +97,11 @@ export function FeaturedProduct() {
           height={1024}
         />
         <div>
-          <span className="text-[9px] text-muted-foreground">{t("SOUND, REIMAGINED")}</span>
+          <span className="text-[9px] text-muted-foreground"><LocalizedText text={"SOUND, REIMAGINED"} /></span>
           <h3>
-            {t("Studio Wireless")}
+            <LocalizedText text={"Studio Wireless"} />
             <br />
-            {t("Headphones")}
+            <LocalizedText text={"Headphones"} />
           </h3>
           <p className="price">
             {money(3490)}{" "}
@@ -111,7 +111,7 @@ export function FeaturedProduct() {
           </p>
           <Button asChild variant="link" className="h-auto p-0 mt-2 text-[11px]">
             <Link to="/service/$slug" params={{ slug: "shopping" }}>
-              {t("Shop now ")}
+              <LocalizedText text={"Shop now "} />
               <ArrowUpRight />
             </Link>
           </Button>
@@ -124,10 +124,10 @@ export function Weather() {
   const { t } = useLanguage();
   return (
     <section className="panel">
-      <SectionHeading title={t("Weather")}>
+      <SectionHeading title="Weather">
         <span className="text-[10px] text-muted-foreground">
           <MapPin className="inline size-3" />
-          {t(" Dhaka")}
+          <LocalizedText text={" Dhaka"} />
         </span>
       </SectionHeading>
       <div className="weather-main">
@@ -135,26 +135,26 @@ export function Weather() {
         <div>
           <span className="weather-temp">28°</span>
           <p>
-            {t("Mostly sunny ")}
+            <LocalizedText text={"Mostly sunny "} />
             <span className="ml-3 text-muted-foreground">31° / 24°</span>
           </p>
         </div>
       </div>
       <div className="weather-extra">
         <span>
-          {t("Humidity ")}
+          <LocalizedText text={"Humidity "} />
           <strong className="text-foreground">64%</strong>
         </span>
         <span>
-          {t("Wind ")}
-          <strong className="text-foreground">{t("12 km/h")}</strong>
+          <LocalizedText text={"Wind "} />
+          <strong className="text-foreground"><LocalizedText text={"12 km/h"} /></strong>
         </span>
-        <span className="text-success">{t("Air: Good")}</span>
+        <span className="text-success"><LocalizedText text={"Air: Good"} /></span>
       </div>
       <div className="forecast">
         {["Now", "12 PM", "3 PM", "6 PM", "9 PM"].map((label, i) => (
           <div key={label}>
-            <span className="text-muted-foreground">{t(label)}</span>
+            <span className="text-muted-foreground"><LocalizedText text={label} /></span>
             {i === 4 ? <Cloud /> : i === 2 ? <CloudSun /> : <Sun />}
             <strong>{[28, 30, 31, 27, 25][i]}°</strong>
           </div>
@@ -167,11 +167,11 @@ export function Finance() {
   const { t } = useLanguage();
   return (
     <section className="panel">
-      <SectionHeading title={t("Market at a glance")}>
-        <span className="demo-tag">{t("Updated 15:00 BST")}</span>
+      <SectionHeading title="Market at a glance">
+        <span className="demo-tag"><LocalizedText text={"Updated 15:00 BST"} /></span>
       </SectionHeading>
       <div className="market">
-        <p className="text-[10px] text-muted-foreground mb-2">{t("SHOLOK COMPOSITE INDEX")}</p>
+        <p className="text-[10px] text-muted-foreground mb-2"><LocalizedText text={"SHOLOK COMPOSITE INDEX"} /></p>
         <strong>5,248.62</strong>
         <span className="change">↗ 42.18 (+0.81%)</span>
         <svg
@@ -202,7 +202,7 @@ export function Finance() {
           params={{ slug: "finance" }}
           className="text-[10px] text-primary block pt-3"
         >
-          {t("Explore market insights ")}
+          <LocalizedText text={"Explore market insights "} />
           <ArrowUpRight className="inline size-3" />
         </Link>
       </div>
@@ -224,16 +224,13 @@ export function Calendar() {
   const today = new Date();
   return (
     <section className="panel">
-      <SectionHeading title={t("Your widget board")}>
-        <span className="text-[10px] text-primary">{t("A little organized")}</span>
+      <SectionHeading title="Your widget board">
+        <span className="text-[10px] text-primary"><LocalizedText text={"A little organized"} /></span>
       </SectionHeading>
       <div className="widget-board">
         <div className="calendar-title">
           <strong>
-            {month.toLocaleDateString(language === "bn" ? "bn-BD" : "en-US", {
-              month: "long",
-              year: "numeric",
-            })}
+            <LocalizedText text={month.toLocaleDateString("en-US", { month: "long", year: "numeric" })} bengaliText={month.toLocaleDateString("bn-BD", { month: "long", year: "numeric" })} />
           </strong>
           <div className="flex">
             <Button
@@ -263,11 +260,8 @@ export function Calendar() {
           </div>
         </div>
         <div className="calendar-grid">
-          {(language === "bn"
-            ? ["রবি", "সোম", "মঙ্গল", "বুধ", "বৃহ", "শুক্র", "শনি"]
-            : ["S", "M", "T", "W", "T", "F", "S"]
-          ).map((d, i) => (
-            <span key={i}>{t(d)}</span>
+          {["S", "M", "T", "W", "T", "F", "S"].map((d, i) => (
+            <span key={i}><LocalizedText text={d} bengaliText={["রবি", "সোম", "মঙ্গল", "বুধ", "বৃহ", "শুক্র", "শনি"][i] ?? d} /></span>
           ))}
           {Array.from({ length: start }, (_, i) => (
             <span key={`blank${i}`} />
@@ -295,9 +289,9 @@ export function Calendar() {
         </div>
         <div className="notes-area">
           <h3 className="text-xs font-semibold mb-3">
-            {t("Quick notes ")}
+            <LocalizedText text={"Quick notes "} />
             <span className="text-[9px] text-muted-foreground font-normal ml-2">
-              {t("Saved on this device")}
+              <LocalizedText text={"Saved on this device"} />
             </span>
           </h3>
           <form
@@ -360,7 +354,7 @@ export function Calendar() {
           ))}
         </div>
         <div className="notes-area">
-          <h3 className="text-xs font-semibold mb-3">{t("Quick links")}</h3>
+          <h3 className="text-xs font-semibold mb-3"><LocalizedText text={"Quick links"} /></h3>
           <div className="flex flex-wrap gap-3">
             {(recent.length ? recent : ["cafe", "shopping", "news"]).slice(0, 4).map((s) => (
               <Link
@@ -392,17 +386,17 @@ export function Shipping() {
           loading="lazy"
         />
         <div>
-          <span className="text-[9px] text-primary">{t("WEEKEND SPECIAL · SPONSORED")}</span>
-          <h3 className="text-sm font-semibold my-1">{t("A little treat. On us.")}</h3>
+          <span className="text-[9px] text-primary"><LocalizedText text={"WEEKEND SPECIAL · SPONSORED"} /></span>
+          <h3 className="text-sm font-semibold my-1"><LocalizedText text={"A little treat. On us."} /></h3>
           <p className="text-[10px] text-muted-foreground">
-            {t("Free shipping on orders over ৳1,500.")}
+            <LocalizedText text={"Free shipping on orders over ৳1,500."} />
           </p>
           <Link
             to="/service/$slug"
             params={{ slug: "shopping" }}
             className="text-[10px] text-primary"
           >
-            {t("Find your favorite →")}
+            <LocalizedText text={"Find your favorite →"} />
           </Link>
         </div>
       </div>

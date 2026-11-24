@@ -1,4 +1,4 @@
-import { useLanguage } from "@/lib/language";
+import { LocalizedText, useLanguage } from "@/lib/language";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import {
@@ -37,7 +37,7 @@ export function SectionHeading({
   return (
     <div className="panel-heading">
       <h2>
-        {t(title)} {subtitle && <span className="caption ml-2">{subtitle}</span>}
+        <LocalizedText text={title} /> {subtitle && <span className="caption ml-2"><LocalizedText text={subtitle} /></span>}
       </h2>
       {children}
     </div>
@@ -98,7 +98,7 @@ export function FeaturedNews() {
             aria-pressed={tab === label}
             onClick={() => setTab(label)}
           >
-            {t(label)}
+            <LocalizedText text={label} />
           </Button>
         ))}
       </div>
@@ -109,12 +109,12 @@ export function FeaturedNews() {
               <img src={story.image} alt={headline(story)} width={1536} height={1024} />
               <div className="news-tile-copy">
                 <span className="news-category">
-                  {t(story.category)}
+                  <LocalizedText text={story.category} />
                 </span>
-                <h2>{headline(story)}</h2>
-                {i === 0 && <p className="news-summary">{description(story)}</p>}
+                <h2><LocalizedText text={story.title} bengaliText={story.titleBn} /></h2>
+                {i === 0 && <p className="news-summary"><LocalizedText text={story.description} bengaliText={story.descriptionBn} /></p>}
                 <p>
-                  {publicationTime(story)}
+                  <LocalizedText text={story.time} bengaliText={story.timeBn} />
                 </p>
               </div>
             </Button>
@@ -166,7 +166,7 @@ export function ProductCard({
         </a>
         <span className="discount">
           {product.discount}
-          {t("% OFF")}
+          <LocalizedText text={"% OFF"} />
         </span>
         <Button
           variant="ghost"
@@ -190,7 +190,7 @@ export function ProductCard({
           onOpen(product);
         }}
       >
-        <h3>{t(product.name)}</h3>
+        <h3><LocalizedText text={product.name} /></h3>
       </a>
       <span className="price">{money(product.price)}</span>
       <span className="old-price">{money(product.original)}</span>
@@ -248,7 +248,7 @@ export function Shopping({ full = false }: { full?: boolean }) {
               setPage(0);
             }}
           >
-            {t(label)}
+            <LocalizedText text={label} />
           </Button>
         ))}
       </div>
@@ -263,7 +263,7 @@ export function Shopping({ full = false }: { full?: boolean }) {
               setPage(0);
             }}
           >
-            {t(c)}
+            <LocalizedText text={c} />
           </Button>
         ))}
         <select
@@ -271,14 +271,14 @@ export function Shopping({ full = false }: { full?: boolean }) {
           value={sort}
           onChange={(e) => setSort(e.target.value)}
         >
-          <option value="Recommended">{t("Recommended")}</option>
-          <option value="Price: low to high">{t("Price: low to high")}</option>
-          <option value="Top rated">{t("Top rated")}</option>
+          <option value="Recommended"><LocalizedText text={"Recommended"} /></option>
+          <option value="Price: low to high"><LocalizedText text={"Price: low to high"} /></option>
+          <option value="Top rated"><LocalizedText text={"Top rated"} /></option>
         </select>
       </div>
       {tab === "Shopping Live" && (
         <p className="mx-5 mb-4 text-xs text-primary">
-          {t("Next live showcase: Everyday essentials · Saturday, 6 PM")}
+          <LocalizedText text={"Next live showcase: Everyday essentials · Saturday, 6 PM"} />
         </p>
       )}
       <div className="product-grid">
@@ -295,18 +295,18 @@ export function Shopping({ full = false }: { full?: boolean }) {
       </div>
       {!shown.length && (
         <p className="p-5 text-sm text-muted-foreground">
-          {t("Your collection is empty. Save a product to see it here.")}
+          <LocalizedText text={"Your collection is empty. Save a product to see it here."} />
         </p>
       )}
       <div className="section-foot">
-        <span className="text-primary font-semibold">{t("Discover your next favorite")}</span>
+        <span className="text-primary font-semibold"><LocalizedText text={"Discover your next favorite"} /></span>
         <Pager
           onPrev={() => setPage((page + pageCount - 1) % pageCount)}
           onNext={() => setPage((page + 1) % pageCount)}
           label={`${page + 1} / ${pageCount}`}
         />
         <Button variant="link" size="sm" className="text-[10px]" onClick={() => setMore(!more)}>
-          {t(more ? "Show less" : "View more")}
+          <LocalizedText text={more ? "Show less" : "View more"} />
         </Button>
       </div>
       <Dialog
@@ -316,8 +316,8 @@ export function Shopping({ full = false }: { full?: boolean }) {
         }}
       >
         <DialogContent>
-          <DialogTitle>{t(selected?.name ?? "")}</DialogTitle>
-          <DialogDescription>{t("SHOLOK Shopping · Ships within 2–3 days")}</DialogDescription>
+          <DialogTitle><LocalizedText text={selected?.name ?? ""} /></DialogTitle>
+          <DialogDescription><LocalizedText text={"SHOLOK Shopping · Ships within 2–3 days"} /></DialogDescription>
           {selected && (
             <>
               <img
@@ -332,18 +332,18 @@ export function Shopping({ full = false }: { full?: boolean }) {
                 </span>
               </p>
               <p className="text-sm text-muted-foreground">
-                {t("Thoughtfully selected for your everyday. Rated ")}
+                <LocalizedText text={"Thoughtfully selected for your everyday. Rated "} />
                 {selected.rating}
-                {t(" by ")}
+                <LocalizedText text={" by "} />
                 {selected.reviews}
-                {t(" verified buyers.")}
+                <LocalizedText text={" verified buyers."} />
               </p>
               <Button onClick={() => setCart(true)}>
-                {t(cart ? "Added to bag ✓" : "Add to bag")}
+                <LocalizedText text={cart ? "Added to bag ✓" : "Add to bag"} />
               </Button>
               {cart && (
                 <p role="status" className="text-xs text-muted-foreground">
-                  {t("Item added. Review your bag before checkout.")}
+                  <LocalizedText text={"Item added. Review your bag before checkout."} />
                 </p>
               )}
             </>
@@ -361,8 +361,8 @@ export function Discovery() {
     category === "For You" ? stories : stories.filter((s) => s.category === category);
   return (
     <section className="panel">
-      <SectionHeading title={t("Discover something good")}>
-        <span className="text-[10px] text-primary">{t("Curated for your everyday")}</span>
+      <SectionHeading title="Discover something good">
+        <span className="text-[10px] text-primary"><LocalizedText text={"Curated for your everyday"} /></span>
       </SectionHeading>
       <div className="tabs-line mb-4">
         {[
@@ -379,7 +379,7 @@ export function Discovery() {
           "Home & Lifestyle",
         ].map((c) => (
           <Button variant="tab" key={c} data-active={category === c} onClick={() => setCategory(c)}>
-            {t(c)}
+            <LocalizedText text={c} />
           </Button>
         ))}
       </div>
@@ -391,10 +391,10 @@ export function Discovery() {
               params={{ slug: s.category === "Technology" ? "knowledge" : "blog" }}
             >
               <img src={s.image} alt={t(s.title)} width={1536} height={1024} loading="lazy" />
-              <span className="category">{t(s.category)}</span>
-              <h3>{t(s.title)}</h3>
+              <span className="category"><LocalizedText text={s.category} /></span>
+              <h3><LocalizedText text={s.title} /></h3>
               <span className="source">
-                {t(s.source)} · {t(s.time)}
+                <LocalizedText text={s.source} /> · <LocalizedText text={s.time} />
               </span>
             </Link>
           </article>
@@ -402,7 +402,7 @@ export function Discovery() {
       </div>
       <div className="section-foot">
         <Button variant="ghost" size="sm" onClick={() => setMore(!more)}>
-          {t(more ? "Show Less" : "Expand More")}
+          <LocalizedText text={more ? "Show Less" : "Expand More"} />
           <ChevronDown className={more ? "rotate-180" : ""} />
         </Button>
       </div>
@@ -414,8 +414,8 @@ export function Sponsored() {
   return (
     <section className="panel">
       <SectionHeading
-        title={t("Small actions. Real possibilities.")}
-        subtitle={t("Together, we do more")}
+        title="Small actions. Real possibilities."
+        subtitle="Together, we do more"
       />
       <div className="discovery-grid">
         {[
@@ -438,9 +438,9 @@ export function Sponsored() {
           <article className="article-card" key={s.title}>
             <Link to="/info/$page" params={{ page: "community-initiatives" }}>
               <img src={s.image} alt={t(s.title)} loading="lazy" width={1536} height={1024} />
-              <span className="category">{t("Sponsored")}</span>
-              <h3>{t(s.title)}</h3>
-              <span className="source">{t(s.source)}</span>
+              <span className="category"><LocalizedText text={"Sponsored"} /></span>
+              <h3><LocalizedText text={s.title} /></h3>
+              <span className="source"><LocalizedText text={s.source} /></span>
             </Link>
           </article>
         ))}
@@ -454,9 +454,9 @@ export function Videos() {
   const [playing, setPlaying] = useState(false);
   return (
     <section className="panel">
-      <SectionHeading title={t("Worth a little of your time")}>
+      <SectionHeading title="Worth a little of your time">
         <Link to="/service/$slug" params={{ slug: "tv" }} className="heading-link">
-          {t("More videos ")}
+          <LocalizedText text={"More videos "} />
           <ArrowUpRight className="inline size-3" />
         </Link>
       </SectionHeading>
@@ -480,8 +480,8 @@ export function Videos() {
                 0{3 + i}:24
               </span>
             </div>
-            <h3>{t(s.title)}</h3>
-            <span className="source">{t("SHOLOK Originals")}</span>
+            <h3><LocalizedText text={s.title} /></h3>
+            <span className="source"><LocalizedText text={"SHOLOK Originals"} /></span>
           </article>
         ))}
       </div>
@@ -492,8 +492,8 @@ export function Videos() {
         }}
       >
         <DialogContent>
-          <DialogTitle>{t(video)}</DialogTitle>
-          <DialogDescription>{t("SHOLOK TV · Editor’s pick")}</DialogDescription>
+          <DialogTitle><LocalizedText text={video} /></DialogTitle>
+          <DialogDescription><LocalizedText text={"SHOLOK TV · Editor’s pick"} /></DialogDescription>
           <div className="relative">
             <img
               src={images.city}
@@ -510,7 +510,7 @@ export function Videos() {
             </Button>
           </div>
           <p role="status" className="text-sm text-primary">
-            {t(playing ? "Preview playing · Enjoy a moment of inspiration." : "Preview paused")}
+            <LocalizedText text={playing ? "Preview playing · Enjoy a moment of inspiration." : "Preview paused"} />
           </p>
         </DialogContent>
       </Dialog>

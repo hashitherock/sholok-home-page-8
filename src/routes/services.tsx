@@ -1,4 +1,4 @@
-import { useLanguage } from "@/lib/language";
+import { LocalizedText, useLanguage } from "@/lib/language";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Shell } from "@/components/portal/shell";
@@ -28,10 +28,10 @@ function Directory() {
   return (
     <Shell>
       <main className="portal-container destination">
-        <p className="text-xs text-primary">{t("YOUR WORLD, TOGETHER")}</p>
-        <h1 className="font-semibold mt-3">{t("Explore SHOLOK")}</h1>
+        <p className="text-xs text-primary"><LocalizedText text={"YOUR WORLD, TOGETHER"} /></p>
+        <h1 className="font-semibold mt-3"><LocalizedText text={"Explore SHOLOK"} /></h1>
         <p className="text-sm text-muted-foreground mt-2">
-          {t("17 services. Endless possibilities.")}
+          <LocalizedText text={"17 services. Endless possibilities."} />
         </p>
         <input
           aria-label={t("Search services")}
@@ -48,7 +48,7 @@ function Directory() {
               size="sm"
               onClick={() => setCategory(c)}
             >
-              {t(c)}
+              <LocalizedText text={c} />
             </Button>
           ))}
         </div>
@@ -71,8 +71,8 @@ function Directory() {
                 <span className="service-icon" data-service={s.slug}>
                   <s.icon />
                 </span>
-                <h3>{t(s.name)}</h3>
-                <p>{t(s.description)}</p>
+                <h3><LocalizedText text={s.name} /></h3>
+                <p><LocalizedText text={s.description} /></p>
                 <span className="text-[10px] text-primary">{s.url.replace("https://", "")} →</span>
               </Link>
             ))}

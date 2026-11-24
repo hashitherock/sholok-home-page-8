@@ -26,3 +26,16 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 }
 export const useLanguage = () => useContext(LanguageContext);
+
+/** Both translations participate in intrinsic sizing; only the selected one is exposed. */
+export function LocalizedText({ text, bengaliText }: { text: string; bengaliText?: string }) {
+  const { language } = useLanguage();
+  const bn = bengaliText ?? translate(text, "bn");
+  if (text === bn) return <>{text}</>;
+  return (
+    <span className="localized-text">
+      <span lang="en" aria-hidden={language !== "en"} className={language !== "en" ? "localized-text-reserve" : undefined}>{text}</span>
+      <span lang="bn" aria-hidden={language !== "bn"} className={language !== "bn" ? "localized-text-reserve" : undefined}>{bn}</span>
+    </span>
+  );
+}

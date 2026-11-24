@@ -1,4 +1,4 @@
-import { useLanguage } from "@/lib/language";
+import { LocalizedText, useLanguage } from "@/lib/language";
 import { createFileRoute } from "@tanstack/react-router";
 import { CloudSun, ArrowUpRight } from "lucide-react";
 import { Shell } from "@/components/portal/shell";
@@ -46,21 +46,16 @@ function Index() {
         <div className="dayline">
           <span>
             <strong className="text-foreground">
-              {new Date().toLocaleDateString(language === "bn" ? "bn-BD" : "en-US", {
-                weekday: "long",
-                month: "long",
-                day: "numeric",
-                year: "numeric",
-              })}
+              <LocalizedText text={new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })} bengaliText={new Date().toLocaleDateString("bn-BD", { weekday: "long", month: "long", day: "numeric", year: "numeric" })} />
             </strong>{" "}
-            <span className="ml-3">{t("A fresh day. A world to discover.")}</span>
+            <span className="ml-3"><LocalizedText text={"A fresh day. A world to discover."} /></span>
           </span>
           <span className="day-extra">
             <CloudSun className="inline size-4 text-destructive mr-1" />
-            {t(" Dhaka 28° · Partly cloudy ")}
+            <LocalizedText text={" Dhaka 28° · Partly cloudy "} />
             <span className="mx-3">|</span>{" "}
             <span className="text-primary">
-              {t("Make SHOLOK yours ")}
+              <LocalizedText text={"Make SHOLOK yours "} />
               <ArrowUpRight className="inline size-3" />
             </span>
           </span>

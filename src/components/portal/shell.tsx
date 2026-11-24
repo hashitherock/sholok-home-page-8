@@ -1,4 +1,4 @@
-import { useLanguage } from "@/lib/language";
+import { LocalizedText, useLanguage } from "@/lib/language";
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, UserRound, Search, Mic, X, ArrowUpRight, ArrowUp, Heart } from "lucide-react";
@@ -61,28 +61,28 @@ export function AccountDialog({
     >
       <DialogContent>
         <DialogTitle>
-          <span className="brand text-2xl">{t("SHOLOK")}</span>{" "}
-          <span className="text-base">{t(user ? "My Account" : mode)}</span>
+          <span className="brand text-2xl"><LocalizedText text={"SHOLOK"} /></span>{" "}
+          <span className="text-base"><LocalizedText text={user ? "My Account" : mode} /></span>
         </DialogTitle>
         <DialogDescription>
-          {t("Your SHOLOK account · Sign in to sync your saved items, notes and preferences.")}
+          <LocalizedText text={"Your SHOLOK account · Sign in to sync your saved items, notes and preferences."} />
         </DialogDescription>
         {user ? (
           <div className="form-stack">
             <h3 className="text-lg font-semibold">
-              {t("Hello, ")}
+              <LocalizedText text={"Hello, "} />
               {user}
             </h3>
             <p className="text-sm text-muted-foreground">
               <Heart className="inline size-4" /> {saved.length}
-              {t(" saved products")}
+              <LocalizedText text={" saved products"} />
             </p>
             <p className="text-sm text-muted-foreground">
-              {t("Recently visited: ")}
+              <LocalizedText text={"Recently visited: "} />
               {recent.join(", ") || "No services yet"}
             </p>
             <label className="text-sm">
-              {t("Display name")}
+              <LocalizedText text={"Display name"} />
               <input
                 className="mt-2 w-full"
                 value={user}
@@ -93,7 +93,7 @@ export function AccountDialog({
               variant="outline"
               onClick={() => setNotice("Your preferences have been saved.")}
             >
-              {t("Save settings")}
+              <LocalizedText text={"Save settings"} />
             </Button>
             <Button
               onClick={() => {
@@ -101,7 +101,7 @@ export function AccountDialog({
                 setNotice("");
               }}
             >
-              {t("Logout")}
+              <LocalizedText text={"Logout"} />
             </Button>
           </div>
         ) : (
@@ -116,7 +116,7 @@ export function AccountDialog({
               } else setNotice(copy.success);
             }}
           >
-            <p className="text-sm text-muted-foreground">{t(copy.intro)}</p>
+            <p className="text-sm text-muted-foreground"><LocalizedText text={copy.intro} /></p>
             {mode === "Create Account" && (
               <input
                 name="name"
@@ -148,12 +148,10 @@ export function AccountDialog({
             )}
             {mode === "Create Account" && (
               <p className="text-xs text-muted-foreground">
-                {t(
-                  "By creating an account you agree to the SHOLOK Terms of Use and Privacy Policy.",
-                )}
+                <LocalizedText text={"By creating an account you agree to the SHOLOK Terms of Use and Privacy Policy."} />
               </p>
             )}
-            <Button type="submit">{t(copy.submit)}</Button>
+            <Button type="submit"><LocalizedText text={copy.submit} /></Button>
             <div className="flex justify-center flex-wrap gap-2">
               {["Sign In", "Create Account", "Find ID", "Forgot Password"]
                 .filter((x) => x !== mode)
@@ -175,7 +173,7 @@ export function AccountDialog({
         )}
         {notice && (
           <p role="status" className="text-sm text-primary">
-            {t(notice)}
+            <LocalizedText text={notice} />
           </p>
         )}
       </DialogContent>
@@ -215,7 +213,7 @@ export function Header() {
               <Menu />
             </Button>
             <Link to="/" className="brand header-brand">
-              {t("SHOLOK")}
+              <LocalizedText text={"SHOLOK"} />
             </Link>
             <div className="search-area">
               <form
@@ -225,7 +223,7 @@ export function Header() {
                   search();
                 }}
               >
-                <span className="brand">{t("S")}</span>
+                <span className="brand"><LocalizedText text={"S"} /></span>
                 <input
                   aria-label={t("Search SHOLOK")}
                   value={query}
@@ -261,19 +259,19 @@ export function Header() {
               {focused && (query || recent.length > 0) && (
                 <div className="search-suggestions">
                   <p className="text-xs text-muted-foreground">
-                    {t(query ? "Suggestions" : "Recent searches")}
+                    <LocalizedText text={query ? "Suggestions" : "Recent searches"} />
                   </p>
                   {query ? (
                     results.length ? (
                       results.map((r, i) => (
                         <Link key={i} to="/service/$slug" params={{ slug: r.slug }}>
                           <Search className="size-4 text-primary" />
-                          <span className="text-sm">{t(r.title)}</span>
-                          <span className="ml-auto text-xs text-muted-foreground">{t(r.type)}</span>
+                          <span className="text-sm"><LocalizedText text={r.title} /></span>
+                          <span className="ml-auto text-xs text-muted-foreground"><LocalizedText text={r.type} /></span>
                         </Link>
                       ))
                     ) : (
-                      <p className="p-3 text-sm">{t("No results found. Try another keyword.")}</p>
+                      <p className="p-3 text-sm"><LocalizedText text={"No results found. Try another keyword."} /></p>
                     )
                   ) : (
                     recent.map((r) => (
@@ -283,7 +281,7 @@ export function Header() {
                         className="w-full justify-start"
                         onMouseDown={() => setQuery(r)}
                       >
-                        {t(r)}
+                        <LocalizedText text={r} />
                       </Button>
                     ))
                   )}
@@ -319,14 +317,14 @@ export function Header() {
                 onClick={() => setAccount(true)}
               >
                 <UserRound />
-                <span>{t("My Account")}</span>
+                <span><LocalizedText text={"My Account"} /></span>
               </Button>
             </div>
           </div>
           <p className="header-caption">
-            {t("Your everyday, connected. ")}
+            <LocalizedText text={"Your everyday, connected. "} />
             <span className="text-primary">
-              {t("Discover the world of SHOLOK ")}
+              <LocalizedText text={"Discover the world of SHOLOK "} />
               <ArrowUpRight className="inline size-3" />
             </span>
           </p>
@@ -341,13 +339,13 @@ export function Header() {
         }}
       >
         <DialogContent className="max-w-2xl">
-          <DialogTitle>{t(panel)}</DialogTitle>
-          <DialogDescription>{t("SHOLOK")}</DialogDescription>
+          <DialogTitle><LocalizedText text={panel} /></DialogTitle>
+          <DialogDescription><LocalizedText text={"SHOLOK"} /></DialogDescription>
           <div className="dialog-body">
             {panel === "All services" ? (
               <>
                 <Link to="/services" className="text-sm text-primary">
-                  {t("Browse the service directory →")}
+                  <LocalizedText text={"Browse the service directory →"} />
                 </Link>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-4">
                   {services.map((s) => (
@@ -359,7 +357,7 @@ export function Header() {
                       className="flex items-center gap-2 p-3 rounded-md bg-secondary text-sm"
                     >
                       <s.icon className="size-5 text-primary" />
-                      {t(s.name)}
+                      <LocalizedText text={s.name} />
                     </Link>
                   ))}
                 </div>
@@ -367,7 +365,7 @@ export function Header() {
             ) : panel === "Search results" ? (
               <>
                 <p className="mb-3 text-sm text-muted-foreground">
-                  {t("Results for “")}
+                  <LocalizedText text={"Results for “"} />
                   {query}”
                 </p>
                 {searchContent(query).length ? (
@@ -379,33 +377,31 @@ export function Header() {
                       onClick={() => setPanel("")}
                       className="block border-b border-border py-3"
                     >
-                      <strong className="text-sm">{t(r.title)}</strong>
+                      <strong className="text-sm"><LocalizedText text={r.title} /></strong>
                       <p className="text-xs text-muted-foreground">
-                        {t(r.type)} · {t(r.description)}
+                        <LocalizedText text={r.type} /> · <LocalizedText text={r.description} />
                       </p>
                     </Link>
                   ))
                 ) : (
-                  <p>{t("No results found. Try another keyword.")}</p>
+                  <p><LocalizedText text={"No results found. Try another keyword."} /></p>
                 )}
               </>
             ) : panel === "Voice search" ? (
               <p className="text-sm">
-                {t(
-                  "Voice search isn’t available in your browser yet. Please type your search in the search box.",
-                )}
+                <LocalizedText text={"Voice search isn’t available in your browser yet. Please type your search in the search box."} />
               </p>
             ) : (
               <div className="space-y-4 text-sm">
                 <p>
-                  <strong>{t("Welcome to SHOLOK")}</strong>
+                  <strong><LocalizedText text={"Welcome to SHOLOK"} /></strong>
                   <br />
-                  {t("Your daily discoveries are ready.")}
+                  <LocalizedText text={"Your daily discoveries are ready."} />
                 </p>
                 <p>
-                  <strong>{t("A little inspiration for your weekend")}</strong>
+                  <strong><LocalizedText text={"A little inspiration for your weekend"} /></strong>
                   <br />
-                  {t("Explore new stories and editor’s picks.")}
+                  <LocalizedText text={"Explore new stories and editor’s picks."} />
                 </p>
               </div>
             )}
@@ -428,32 +424,32 @@ export function Footer() {
       <div className="portal-container">
         <div className="footer-announcement">
           <span>
-            <strong className="mr-4">{t("Announcements")}</strong>
-            {t(" Welcome to your new everyday. Meet SHOLOK.")}
+            <strong className="mr-4"><LocalizedText text={"Announcements"} /></strong>
+            <LocalizedText text={" Welcome to your new everyday. Meet SHOLOK."} />
           </span>
           <Link to="/info/$page" params={{ page: "announcements" }} className="shrink-0">
-            {t("View all ")}
+            <LocalizedText text={"View all "} />
             <ArrowUpRight className="inline size-3" />
           </Link>
         </div>
         <div className="footer-grid">
           <div>
             <Link to="/" className="brand text-2xl">
-              {t("SHOLOK")}
+              <LocalizedText text={"SHOLOK"} />
             </Link>
-            <p className="text-xs text-muted-foreground mt-3">{t("Your everyday, connected.")}</p>
-            <Link to="/services">{t("Explore all services →")}</Link>
+            <p className="text-xs text-muted-foreground mt-3"><LocalizedText text={"Your everyday, connected."} /></p>
+            <Link to="/services"><LocalizedText text={"Explore all services →"} /></Link>
           </div>
           {footerGroups.map((g) => (
             <div key={g.title}>
-              <h3>{t(g.title)}</h3>
+              <h3><LocalizedText text={g.title} /></h3>
               {g.items.map((item) => (
                 <Link
                   key={item}
                   to="/info/$page"
                   params={{ page: item.toLowerCase().replaceAll(" ", "-") }}
                 >
-                  {t(item)}
+                  <LocalizedText text={item} />
                 </Link>
               ))}
             </div>
@@ -462,13 +458,13 @@ export function Footer() {
         <div className="footer-bottom">
           <span>
             © {new Date().getFullYear()}
-            {t(" SHOLOK. All rights reserved.")}
+            <LocalizedText text={" SHOLOK. All rights reserved."} />
           </span>
           <span>
-            {t("Made for a more connected world. ")}
+            <LocalizedText text={"Made for a more connected world. "} />
             <span className="text-primary">বাংলাদেশ</span>
           </span>
-          <span>{t("© 2026 SHOLOK. All rights reserved.")}</span>
+          <span><LocalizedText text={"© 2026 SHOLOK. All rights reserved."} /></span>
         </div>
       </div>
       <Button

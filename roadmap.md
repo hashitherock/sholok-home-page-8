@@ -1,4 +1,5 @@
 # SHOLOK portal
+- [ ] Stabilize bilingual text sizing, header controls, homepage sections and navigation; compare both languages across screen sizes.
 - [x] Add prominent pill-shaped header search and verify English/Bengali searches.
 - [x] Connect consistent বাংলা / English text switching and verify it across pages and screen sizes.
 - [x] Remove notification and cart icons; retain My Account at every width.

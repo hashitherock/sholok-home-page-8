@@ -155,7 +155,7 @@
 }
 
 @theme inline {
- --font-sans: 'DM Sans', sans-serif;
+ --font-sans: 'DM Sans', 'Noto Sans Bengali', system-ui, sans-serif;
  --font-brand: 'Archivo Black', sans-serif;
  --color-brand-purple: var(--brand-purple);
  --color-brand-purple-soft: var(--brand-purple-soft);
@@ -536,3 +536,40 @@ a {text-decoration:none;}
 
 .service-icon[data-service] {color:var(--service-tone);background:color-mix(in oklch,var(--service-tone) 9%,var(--card));border-color:color-mix(in oklch,var(--service-tone) 18%,var(--card));}
 .dark .service-icon[data-service] {color:color-mix(in oklch,var(--service-tone) 60%,var(--foreground));background:color-mix(in oklch,var(--service-tone) 18%,var(--card));}
+
+/* Reserve the natural size of both translations, not arbitrary fixed card heights. */
+*, *::before, *::after {box-sizing:border-box;}
+.localized-text {display:inline-grid;grid-template-columns:minmax(0,1fr);max-width:100%;min-width:0;vertical-align:bottom;line-height:inherit;white-space:inherit;}
+.localized-text>span {grid-area:1 / 1;min-width:0;overflow-wrap:anywhere;}
+.localized-text-reserve {visibility:hidden;pointer-events:none;user-select:none;}
+.panel-heading h2, .news-tile h2, .product-card h3, .article-card h3, .directory-card h3 {line-height:1.5;}
+.news-tile-copy>.localized-text, .news-tile-copy h2>.localized-text, .news-summary>.localized-text,
+.product-card h3>.localized-text, .article-card h3>.localized-text, .directory-card p>.localized-text {display:grid;width:100%;}
+.news-categories {display:grid;grid-template-columns:repeat(8,minmax(0,1fr));padding:0 8px;gap:0;}
+.news-categories button {min-width:0;padding:0 4px;font-size:11px;}
+.panel-heading {grid-template-columns:minmax(0,1fr) minmax(0,auto);}
+.panel-heading>* {min-width:0;}
+.heading-link {flex-shrink:0;}
+.menu-service-grid a {min-height:52px;}
+.menu-destinations a {display:grid;grid-template-columns:minmax(0,1fr) auto;min-height:48px;}
+.account-panel .account-links {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px!important;align-items:start;}
+.account-links button {min-width:0;white-space:normal;line-height:1.6;}
+.sidebar-product, .weather-main {display:grid;grid-template-columns:auto minmax(0,1fr);}
+.weather-main>div, .promo-copy, .footer-grid>div {min-width:0;}
+.promo-copy h2 {line-height:1.5;}
+.weather-extra {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;line-height:1.6;}
+.calendar-grid {grid-template-columns:repeat(7,minmax(0,1fr));}
+.calendar-grid>span {padding:5px 0;min-width:0;line-height:1.6;}
+.notes-area h3 {line-height:1.6;}
+.notes-area form {display:grid;grid-template-columns:minmax(0,1fr) auto;}
+.sidebar .panel:last-child>div {display:grid;grid-template-columns:64px minmax(0,1fr);}
+.sidebar .panel:last-child>div>div {min-width:0;}
+.footer-bottom {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));line-height:1.7;}
+.footer-bottom>span {min-width:0;}
+@media(max-width:600px) {
+ .news-categories {grid-template-columns:repeat(4,minmax(0,1fr));}
+ .section-foot {display:grid;grid-template-columns:minmax(0,1fr) auto auto;}
+ .section-foot:has(>button:only-child) {display:flex;}
+ .section-foot button {min-width:0;white-space:normal;}
+ .footer-bottom {grid-template-columns:minmax(0,1fr);}
+}

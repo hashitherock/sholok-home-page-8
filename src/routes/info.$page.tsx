@@ -1,4 +1,4 @@
-import { useLanguage } from "@/lib/language";
+import { LocalizedText, useLanguage } from "@/lib/language";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { Shell } from "@/components/portal/shell";
 import { helpDestinations, helpQuestions } from "@/lib/portal-data";
@@ -54,33 +54,27 @@ function Information() {
       <main className="portal-container destination">
         <div className="max-w-2xl">
           <Link to="/" className="text-sm text-primary">
-            {t("← SHOLOK home")}
+            <LocalizedText text={"← SHOLOK home"} />
           </Link>
-          <h1 className="font-semibold mt-6">{t(titleFor(page))}</h1>
-          <p className="text-xs text-primary mt-3">{t("Last updated: 1 November 2026")}</p>
+          <h1 className="font-semibold mt-6"><LocalizedText text={titleFor(page)} /></h1>
+          <p className="text-xs text-primary mt-3"><LocalizedText text={"Last updated: 1 November 2026"} /></p>
           {page === "about" ? (
             <>
-              <h2 className="text-xl font-semibold mt-8">{t("Introduction")}</h2>
+              <h2 className="text-xl font-semibold mt-8"><LocalizedText text={"Introduction"} /></h2>
               <p className="text-sm leading-7 text-muted-foreground mt-3">
-                {t(
-                  "SHOLOK brings communities, discovery, shopping, stories and everyday utilities together in one welcoming place.",
-                )}
+                <LocalizedText text={"SHOLOK brings communities, discovery, shopping, stories and everyday utilities together in one welcoming place."} />
               </p>
               <h2 id="overview" className="text-xl font-semibold mt-8">
-                {t("Overview")}
+                <LocalizedText text={"Overview"} />
               </h2>
               <p className="text-sm leading-7 text-muted-foreground mt-3">
-                {t(
-                  "Browse communities, shopping, news, entertainment and everyday tools across the SHOLOK network.",
-                )}
+                <LocalizedText text={"Browse communities, shopping, news, entertainment and everyday tools across the SHOLOK network."} />
               </p>
               <h2 id="purpose" className="text-xl font-semibold mt-8">
-                {t("Our purpose")}
+                <LocalizedText text={"Our purpose"} />
               </h2>
               <p className="text-sm leading-7 text-muted-foreground mt-3">
-                {t(
-                  "Our purpose is to make discovery and everyday connections simpler, bringing useful services together in one accessible portal.",
-                )}
+                <LocalizedText text={"Our purpose is to make discovery and everyday connections simpler, bringing useful services together in one accessible portal."} />
               </p>
             </>
           ) : help ? (
@@ -97,19 +91,19 @@ function Information() {
                       to="/info/$page"
                       params={{ page: destination.page }}
                     >
-                      {t(destination.title)}
+                      <LocalizedText text={destination.title} />
                     </Link>
                   ))}
               </nav>
               {(page === "help-center" || page === "faq") && (
                 <section className="mt-8">
-                  <h2 className="text-xl font-semibold">{t("Frequently asked questions")}</h2>
+                  <h2 className="text-xl font-semibold"><LocalizedText text={"Frequently asked questions"} /></h2>
                   <Accordion type="single" collapsible className="mt-3">
                     {helpQuestions.map(({ question, answer }, index) => (
                       <AccordionItem key={question} value={String(index)}>
-                        <AccordionTrigger>{t(question)}</AccordionTrigger>
+                        <AccordionTrigger><LocalizedText text={question} /></AccordionTrigger>
                         <AccordionContent className="text-muted-foreground leading-7">
-                          {t(answer)}
+                          <LocalizedText text={answer} />
                         </AccordionContent>
                       </AccordionItem>
                     ))}
@@ -118,56 +112,46 @@ function Information() {
               )}
               {page === "support" && (
                 <>
-                  <h2 className="text-xl font-semibold mt-8">{t("Help & support")}</h2>
+                  <h2 className="text-xl font-semibold mt-8"><LocalizedText text={"Help & support"} /></h2>
                   <p className="text-sm leading-7 text-muted-foreground mt-3">
-                    {t("Use the header search or open Services to browse the complete directory.")}
+                    <LocalizedText text={"Use the header search or open Services to browse the complete directory."} />
                   </p>
                 </>
               )}
               {(page === "contact" || page === "support" || page === "help-center") && (
                 <section className="mt-8">
-                  <h2 className="text-xl font-semibold">{t("Contact options")}</h2>
+                  <h2 className="text-xl font-semibold"><LocalizedText text={"Contact options"} /></h2>
                   <p className="text-sm leading-7 text-muted-foreground mt-3">
-                    {t(
-                      "Verified support contact details have not been supplied. Do not send passwords, payment details or private documents through this website.",
-                    )}
+                    <LocalizedText text={"Verified support contact details have not been supplied. Do not send passwords, payment details or private documents through this website."} />
                   </p>
                 </section>
               )}
             </>
           ) : legal ? (
             <>
-              <h2 className="text-lg font-semibold mt-8">{t("Your data, your control")}</h2>
+              <h2 className="text-lg font-semibold mt-8"><LocalizedText text={"Your data, your control"} /></h2>
               <p className="text-sm leading-7 text-muted-foreground mt-3">
-                {t(
-                  "SHOLOK stores your preferences, notes, recent searches and saved products on your device so your experience stays personal. You can clear this information at any time from your browser settings.",
-                )}
+                <LocalizedText text={"SHOLOK stores your preferences, notes, recent searches and saved products on your device so your experience stays personal. You can clear this information at any time from your browser settings."} />
               </p>
-              <h2 className="text-lg font-semibold mt-6">{t("How we use information")}</h2>
+              <h2 className="text-lg font-semibold mt-6"><LocalizedText text={"How we use information"} /></h2>
               <p className="text-sm leading-7 text-muted-foreground mt-3">
-                {t(
-                  "We use information only to provide and improve our services. We never sell your personal data. For questions about this policy, contact privacy@sholok.com.",
-                )}
+                <LocalizedText text={"We use information only to provide and improve our services. We never sell your personal data. For questions about this policy, contact privacy@sholok.com."} />
               </p>
             </>
           ) : (
             <>
-              <h2 className="text-xl font-semibold mt-8">{t("A more connected everyday")}</h2>
+              <h2 className="text-xl font-semibold mt-8"><LocalizedText text={"A more connected everyday"} /></h2>
               <p className="text-sm leading-7 text-muted-foreground mt-3">
-                {t(
-                  "SHOLOK brings communities, discovery, shopping, stories and everyday utilities together in one welcoming place.",
-                )}
+                <LocalizedText text={"SHOLOK brings communities, discovery, shopping, stories and everyday utilities together in one welcoming place."} />
               </p>
               <p className="text-sm leading-7 text-muted-foreground mt-4">
-                {t(
-                  copy[page] ??
-                    "SHOLOK partners with creators, sellers and organisations across Bangladesh. For partnership enquiries, contact partners@sholok.com.",
-                )}
+                <LocalizedText text={copy[page] ??
+                    "SHOLOK partners with creators, sellers and organisations across Bangladesh. For partnership enquiries, contact partners@sholok.com."} />
               </p>
             </>
           )}
           <Link to="/services" className="text-primary inline-block mt-7 text-sm">
-            {t("Explore all services →")}
+            <LocalizedText text={"Explore all services →"} />
           </Link>
         </div>
       </main>
