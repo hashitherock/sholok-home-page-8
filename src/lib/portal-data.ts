@@ -605,7 +605,7 @@ const newsTopics: Record<NewsCategory, [string, string, string, string][]> = {
     ],
   ],
 };
-export const newsArticles = newsCategories.flatMap((category, categoryIndex) =>
+export const newsArticles = newsCategories.flatMap((category) =>
   newsTopics[category].map(([title, titleBn, description, descriptionBn], index) => ({
     id: `${category.toLowerCase()}-${index + 1}`,
     category,
@@ -623,7 +623,8 @@ export const newsArticles = newsCategories.flatMap((category, categoryIndex) =>
             ? living
             : headphones
           : city,
-    source: "SHOLOK Editorial",
+    time: index === 0 ? "1 hour ago" : `${index + 1} hours ago`,
+    timeBn: `${index + 1} ঘণ্টা আগে`,
   })),
 );
 export function getNewsArticles(category: NewsCategory) {

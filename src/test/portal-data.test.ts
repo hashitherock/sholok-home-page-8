@@ -10,6 +10,10 @@ describe('SHOLOK portal rules',()=>{
   expect(new Set(articles.map(article=>article.id)).size).toBe(5);
   expect(articles.every(article=>article.category===category)).toBe(true);
  });
+ it('provides publication times for all five news stories',()=>{
+  expect(getNewsArticles('National').map(article=>article.time)).toEqual(['1 hour ago','2 hours ago','3 hours ago','4 hours ago','5 hours ago']);
+  expect(getNewsArticles('National').map(article=>article.timeBn)).toEqual(['1 ঘণ্টা আগে','2 ঘণ্টা আগে','3 ঘণ্টা আগে','4 ঘণ্টা আগে','5 ঘণ্টা আগে']);
+ });
  it('shows four products in each unfiltered portal shopping page',()=>{
   expect(getProductPage(products,0).map(p=>p.id)).toEqual([1,2,3,4]);
   expect(getProductPage(products,1).map(p=>p.id)).toEqual([5,6,1,2]);

@@ -80,7 +80,6 @@ export const bengali: Record<string, string> = {
   "News home": "সংবাদ পাতায় যান",
   "Featured news": "প্রধান সংবাদ",
   "Read article": "নিবন্ধ পড়ুন",
-  "SHOLOK Editorial": "শোলক সম্পাদকীয়",
   "Sign In": "সাইন ইন",
   "Sign in": "সাইন ইন",
   "Create Account": "অ্যাকাউন্ট তৈরি",

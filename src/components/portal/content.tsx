@@ -86,6 +86,7 @@ export function FeaturedNews() {
   const selected = getNewsArticles(tab);
   const headline = (story: (typeof selected)[number]) => language === "bn" ? story.titleBn : story.title;
   const description = (story: (typeof selected)[number]) => language === "bn" ? story.descriptionBn : story.description;
+  const publicationTime = (story: (typeof selected)[number]) => language === "bn" ? story.timeBn : story.time;
   return (
     <section className="panel news-panel" aria-label={t("Featured news")}>
       <div className="tabs-line news-categories" role="group" aria-label={t("News")}>
@@ -100,14 +101,6 @@ export function FeaturedNews() {
             {t(label)}
           </Button>
         ))}
-        <Link
-          to="/service/$slug"
-          params={{ slug: "news" }}
-          className="ml-auto shrink-0 text-[10px] text-muted-foreground"
-        >
-          {t("News home ")}
-          <ArrowUpRight className="inline size-3" />
-        </Link>
       </div>
       <div className="news-grid">
         {selected.map((story, i) => (
@@ -116,13 +109,12 @@ export function FeaturedNews() {
               <img src={story.image} alt={headline(story)} width={1536} height={1024} />
               <div className="news-tile-copy">
                 <span className="news-category">
-                  {t(i === 0 ? "EDITOR’S PICK · " : "")}
                   {t(story.category)}
                 </span>
                 <h2>{headline(story)}</h2>
                 {i === 0 && <p className="news-summary">{description(story)}</p>}
                 <p>
-                  {t(story.source)}
+                  {publicationTime(story)}
                 </p>
               </div>
             </Button>
@@ -132,7 +124,7 @@ export function FeaturedNews() {
       <Dialog open={reading !== null} onOpenChange={(open) => { if (!open) setReading(null); }}>
         <DialogContent className="max-w-2xl">
           <DialogTitle>{reading ? headline(reading) : t("News")}</DialogTitle>
-          <DialogDescription>{reading ? `${t(reading.category)} · ${t(reading.source)}` : t("Read article")}</DialogDescription>
+           <DialogDescription>{reading ? `${t(reading.category)} · ${publicationTime(reading)}` : t("Read article")}</DialogDescription>
           {reading && (
             <div className="dialog-body">
               <img className="w-full aspect-video object-cover rounded-md" src={reading.image} alt={headline(reading)} />

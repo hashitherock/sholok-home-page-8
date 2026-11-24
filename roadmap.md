@@ -21,6 +21,7 @@
 - [ ] Add verified support contact details (waiting for the user).
 
 ## Current news brief
+- [x] Finalize one featured story and four thumbnail stories with publication times; verify categories, reading and responsive layouts.
 - [x] Show the eight requested categories with five matching articles per category.
 - [x] Balance one featured article with four smaller articles; verify reading and desktop, tablet and phone layouts.
 - [x] Reduce News spacing and height without changing the five-story layout; verify desktop, tablet and phone sizes.
