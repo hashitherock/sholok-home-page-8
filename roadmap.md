@@ -1,5 +1,5 @@
 # SHOLOK portal
-- [ ] Stabilize bilingual text sizing, header controls, homepage sections and navigation; compare both languages across screen sizes.
+- [x] Stabilize bilingual text sizing, header controls, homepage sections and navigation; verified identical dimensions at nine widths from 320px to 1440px, all 17 services, 17 information destinations, six dialog types, language-independent service filters, native sorting and all 26 regression tests.
 - [x] Add prominent pill-shaped header search and verify English/Bengali searches.
 - [x] Connect consistent বাংলা / English text switching and verify it across pages and screen sizes.
 - [x] Remove notification and cart icons; retain My Account at every width.

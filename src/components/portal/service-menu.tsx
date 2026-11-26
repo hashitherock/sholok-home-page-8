@@ -1,4 +1,4 @@
-import { LocalizedText, useLanguage } from "@/lib/language";
+import { LocalizedText, translate, useLanguage } from "@/lib/language";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Search } from "lucide-react";
@@ -28,7 +28,7 @@ export function ServiceMenu({
   const { t } = useLanguage();
   const [query, setQuery] = useState("");
   const filtered = services.filter((service) =>
-    `${service.name} ${service.description} ${t(service.name)} ${t(service.description)}`
+    `${service.name} ${service.description} ${translate(service.name, "bn")} ${translate(service.description, "bn")}`
       .toLowerCase()
       .includes(query.toLowerCase()),
   );

@@ -566,7 +566,11 @@ a {text-decoration:none;}
 .sidebar .panel:last-child>div>div {min-width:0;}
 .footer-bottom {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));line-height:1.7;}
 .footer-bottom>span {min-width:0;}
+.filter-line select {width:160px;max-width:160px;min-width:0;flex-shrink:0;}
+.search-suggestions a {display:grid;grid-template-columns:16px minmax(0,1fr) auto;}
+.search-suggestions a>span {min-width:0;}
 @media(max-width:600px) {
+ .filter-line select {width:100%;max-width:100%;}
  .news-categories {grid-template-columns:repeat(4,minmax(0,1fr));}
  .section-foot {display:grid;grid-template-columns:minmax(0,1fr) auto auto;}
  .section-foot:has(>button:only-child) {display:flex;}

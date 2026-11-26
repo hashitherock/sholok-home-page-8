@@ -85,8 +85,6 @@ export function FeaturedNews() {
   const [reading, setReading] = useState<ReturnType<typeof getNewsArticles>[number] | null>(null);
   const selected = getNewsArticles(tab);
   const headline = (story: (typeof selected)[number]) => language === "bn" ? story.titleBn : story.title;
-  const description = (story: (typeof selected)[number]) => language === "bn" ? story.descriptionBn : story.description;
-  const publicationTime = (story: (typeof selected)[number]) => language === "bn" ? story.timeBn : story.time;
   return (
     <section className="panel news-panel" aria-label={t("Featured news")}>
       <div className="tabs-line news-categories" role="group" aria-label={t("News")}>
@@ -123,12 +121,12 @@ export function FeaturedNews() {
       </div>
       <Dialog open={reading !== null} onOpenChange={(open) => { if (!open) setReading(null); }}>
         <DialogContent className="max-w-2xl">
-          <DialogTitle>{reading ? headline(reading) : t("News")}</DialogTitle>
-           <DialogDescription>{reading ? `${t(reading.category)} · ${publicationTime(reading)}` : t("Read article")}</DialogDescription>
+          <DialogTitle>{reading ? <LocalizedText text={reading.title} bengaliText={reading.titleBn} /> : <LocalizedText text="News" />}</DialogTitle>
+          <DialogDescription>{reading ? <><LocalizedText text={reading.category} /> · <LocalizedText text={reading.time} bengaliText={reading.timeBn} /></> : <LocalizedText text="Read article" />}</DialogDescription>
           {reading && (
             <div className="dialog-body">
               <img className="w-full aspect-video object-cover rounded-md" src={reading.image} alt={headline(reading)} />
-              <p className="mt-5 text-sm leading-7 text-foreground">{description(reading)}</p>
+              <p className="mt-5 text-sm leading-7 text-foreground"><LocalizedText text={reading.description} bengaliText={reading.descriptionBn} /></p>
             </div>
           )}
         </DialogContent>
@@ -271,9 +269,9 @@ export function Shopping({ full = false }: { full?: boolean }) {
           value={sort}
           onChange={(e) => setSort(e.target.value)}
         >
-          <option value="Recommended"><LocalizedText text={"Recommended"} /></option>
-          <option value="Price: low to high"><LocalizedText text={"Price: low to high"} /></option>
-          <option value="Top rated"><LocalizedText text={"Top rated"} /></option>
+          <option value="Recommended">{t("Recommended")}</option>
+          <option value="Price: low to high">{t("Price: low to high")}</option>
+          <option value="Top rated">{t("Top rated")}</option>
         </select>
       </div>
       {tab === "Shopping Live" && (

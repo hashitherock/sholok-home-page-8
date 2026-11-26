@@ -1,4 +1,4 @@
-import { LocalizedText, useLanguage } from "@/lib/language";
+import { LocalizedText, translate, useLanguage } from "@/lib/language";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Shell } from "@/components/portal/shell";
@@ -57,7 +57,7 @@ function Directory() {
             .filter(
               (s) =>
                 (category === "All" || s.category === category) &&
-                `${s.name} ${s.description} ${t(s.name)} ${t(s.description)}`
+                `${s.name} ${s.description} ${translate(s.name, "bn")} ${translate(s.description, "bn")}`
                   .toLowerCase()
                   .includes(query.toLowerCase()),
             )
